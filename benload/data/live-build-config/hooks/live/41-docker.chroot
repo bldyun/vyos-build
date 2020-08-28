@@ -1,0 +1,17 @@
+#!/bin/sh
+
+
+URL="https://get.docker.com"
+echo "I: Retrieving get-docker.sh"
+
+
+ret=$(curl -w "%{http_code}" -o /tmp/get-docker.sh \
+    ${URL})
+if [ "${ret}" != "200" ]; then
+    echo E: Received HTTP error code \"${ret}\" when downloading Tencent Agent ...
+    exit 1
+fi
+
+chmod +x /tmp/get-docker.sh
+
+/tmp/get-docker.sh

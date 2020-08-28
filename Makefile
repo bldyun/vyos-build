@@ -278,3 +278,11 @@ clean:
 .PHONY: purge
 purge:
 	rm -rf build/*
+
+.PHONY: tencent
+.ONESHELL:
+tencent: prepare
+	@set -e
+	@echo "It's not like I'm building this specially for you or anything!"
+	cd $(build_dir)
+	@../scripts/build-tencent-image

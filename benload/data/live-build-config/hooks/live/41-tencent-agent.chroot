@@ -1,0 +1,18 @@
+#!/bin/sh
+
+
+URL=https://cloud-monitor-1258344699.cos.ap-guangzhou.myqcloud.com/sgagent/linux_stargate_installer
+echo "I: Retrieving Tencent Agent"
+
+
+ret=$(curl -w "%{http_code}" -o /tmp/linux_stargate_install \
+    ${URL})
+if [ "${ret}" != "200" ]; then
+    echo E: Received HTTP error code \"${ret}\" when downloading Tencent Agent ...
+    exit 1
+fi
+
+chmod +x /tmp/linux_stargate_install
+
+/tmp/linux_stargate_install
+

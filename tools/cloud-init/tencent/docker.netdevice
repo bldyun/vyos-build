@@ -1,0 +1,4 @@
+# device name to CLI path matching
+#lo     loopback
+docker  docker
+
