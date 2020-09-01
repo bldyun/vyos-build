@@ -1,0 +1,39 @@
+name: s2i
+
+on:
+  push:
+    # Publish `master` as Docker `latest` image.
+    branches:
+      - release*
+      - master*
+
+    # Publish `v1.2.3` tags as releases.
+    tags:
+      - v*
+
+  # Run tests for any PRs.
+  pull_request:
+
+jobs:
+  # Push image to GitHub Packages.
+  # See also https://docs.docker.com/docker-hub/builds/
+  s2i:
+    runs-on: ubuntu-latest
+    if: github.event_name == 'push'
+
+    steps:
+      - name: Checkout
+        uses: bldyun/checkout@v2
+        with:
+          fetch-depth: 0
+
+      - name: s2i
+        run: |
+          docker pull vyos/vyos-build:crux && docker run --rm -it \
+          -v "$(pwd)":/vyos \
+          -v "$HOME/.gitconfig":/etc/gitconfig \
+          -v "$HOME/.bash_aliases":/home/vyos_bld/.bash_aliases \
+          -v "$HOME/.bashrc":/home/vyos_bld/.bashrc \
+          -w /vyos --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0 \
+          -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) \
+          vyos/vyos-build:crux make tencent
