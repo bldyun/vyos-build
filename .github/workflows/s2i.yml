@@ -30,7 +30,7 @@ jobs:
 
       - name: s2i
         run: |
-          docker pull vyos/vyos-build:crux && docker run --rm -it \
+          docker pull vyos/vyos-build:crux && docker run --rm -i \
           -v "$(pwd)":/vyos \
           -v "$HOME/.gitconfig":/etc/gitconfig \
           -v "$HOME/.bash_aliases":/home/vyos_bld/.bash_aliases \
