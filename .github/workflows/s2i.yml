@@ -6,6 +6,7 @@ on:
     branches:
       - release*
       - master*
+      - *-bld
 
     # Publish `v1.2.3` tags as releases.
     tags:
