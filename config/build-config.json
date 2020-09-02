@@ -1,0 +1,24 @@
+{
+    "architecture": "amd64",
+    "build_by": "jimin.huang@bldyun.com",
+    "build_dir": "/vyos/vyos-build/build",
+    "build_type": "release",
+    "custom_apt_entry": [
+    ],
+    "custom_apt_key": null,
+    "custom_package": ["vim"],
+    "debian_mirror": "https://mirrors.cloud.tencent.com/debian",
+    "debian_security_mirror": "https://mirrors.cloud.tencent.com/debian-security",
+    "debug": false,
+    "distribution": "jessie",
+    "kernel_flavor": "amd64-vyos",
+    "kernel_version": "4.19.114",
+    "ova_signing_key": "/vyos/rsa3-prv.pem",
+    "pbuilder_config": "build/pbuilderrc",
+    "pbuilder_debian_mirror": "https://mirrors.kernel.org/debian",
+    "release_train": "crux",
+    "version": "1.2.1-bld",
+    "vyos_branch": "crux",
+    "vyos_mirror": "http://repo.bldyun.com/vyos/vyos/repositories-crux-vyos"
+}
+
