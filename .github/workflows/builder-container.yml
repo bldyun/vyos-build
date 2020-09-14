@@ -45,4 +45,6 @@ jobs:
           export PATH=${PATH}:${PWD}/cicd-s2e-runner/s2e
           ls -lh ${PWD}/cicd-s2e-runner/s2e
           env
+          ls -lh
+          cd docker
           s2i .
