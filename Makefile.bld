@@ -11,7 +11,8 @@ tencent: bld-config
 	cp -r data/live-build-config/* build/config/
 	bldyun/build-config-update-mirror
 	@scripts/live-build-config
-	@scripts/import-local-packages
+#	@scripts/import-local-packages
 	@scripts/make-version-file
 	@scripts/build-flavour
-	@scripts/build-tencent-image
+	cd build
+	@../scripts/build-tencent-image
