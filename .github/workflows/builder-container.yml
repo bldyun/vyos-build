@@ -4,9 +4,9 @@ name: builder-container
 # https://docs.github.com/en/actions/reference/workflow-syntax-for-github-actions
 on:
   push:
-    paths:
-    - 'docker/**'
-    - '!docs/**'
+#    paths:
+#    - 'docker/**'
+#    - '!docs/**'
     branches:
       - crux-bld
     tags:
