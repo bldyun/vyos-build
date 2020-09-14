@@ -8,7 +8,8 @@ echo "I: Retrieving Linux Firmware - commit ${COMMIT}"
 
 #ret=$(curl -w "%{http_code}" -o /tmp/linux-firmware-${COMMIT}.tar.gz \
 #    https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git/snapshot/linux-firmware-${COMMIT}.tar.gz)
-
+# https://mirrors.cloud.tencent.com/linux-kernel/firmware/linux-firmware-20200721.tar.xz
+# http://mirrors.ustc.edu.cn/kernel.org/linux/kernel/firmware/linux-firmware-20200721.tar.gz
 ret=$(curl -w "%{http_code}" -o /tmp/linux-firmware-${COMMIT}.tar.gz \
     http://mirrors.ustc.edu.cn/kernel.org/linux/kernel/firmware/linux-firmware-${COMMIT}.tar.gz)
 if [ "${ret}" != "200" ]; then

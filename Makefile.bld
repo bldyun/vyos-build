@@ -1,0 +1,9 @@
+build_dir := build
+
+include Makefile
+
+.PHONY: tencent
+.ONESHELL:
+tencent: prepare
+	bldyun/build-config-update-mirror
+	@../scripts/build-tencent-image

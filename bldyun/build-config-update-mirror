@@ -1,0 +1,135 @@
+#!/usr/bin/env python3
+#
+# Copyright (C) 2019, VyOS maintainers and contributors
+#
+# This program is free software; you can redistribute it and/or modify
+# it under the terms of the GNU General Public License version 2 or later as
+# published by the Free Software Foundation.
+#
+# This program is distributed in the hope that it will be useful,
+# but WITHOUT ANY WARRANTY; without even the implied warranty of
+# MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+# GNU General Public License for more details.
+#
+# You should have received a copy of the GNU General Public License
+# along with this program.  If not, see <http://www.gnu.org/licenses/>.
+#
+# File: build-config
+# Purpose:
+#  This script serves the same purpose as ./configure in traditional
+#   autoconf setups.
+#  It takes build configuration options from command line, checks them,
+#  builds a config dictionary, augments it with some default and/or
+#  computed values and saves it to build/build-config.json
+#  for other build scripts to read.
+
+import sys
+import os
+import requests
+import json
+
+
+aliyuncloud_mirror_config = {
+    "debian_mirror": "http://mirrors.cloud.aliyuncs.com.json/debian",
+    "debian_security_mirror": "http://mirrors.cloud.aliyuncs.com.json/debian-security",
+    "debian_distribution": "jessie",
+    "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
+    "custom_apt_entry": [
+        "deb http://archive.repo.saltstack.com/apt/debian/8/amd64/2017.7 jessie main",
+        "deb https://mirrors.cloud.tencent.com/debian-archive/debian jessie-backports main",
+    ],
+    "custom_packages": []
+}
+
+huaweicloud_mirror_config = {
+    "debian_mirror": "http://mirrors.myhuaweicloud.com/debian",
+    "debian_security_mirror": "http://mirrors.myhuaweicloud.com/debian-security",
+    "debian_distribution": "jessie",
+    "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
+    "custom_apt_entry": [
+        "deb http://archive.repo.saltstack.com/apt/debian/8/amd64/2017.7 jessie main",
+        "deb https://mirrors.cloud.tencent.com/debian-archive/debian jessie-backports main",
+    ],
+    "custom_packages": []
+}
+
+tencentcloud_mirror_config = {
+    "debian_mirror": "http://mirrors.tencentyun.com/debian",
+    "debian_security_mirror": "http://mirrors.tencentyun.com/debian-security",
+    "debian_distribution": "jessie",
+    "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
+    "custom_apt_entry": [
+        "deb http://archive.repo.saltstack.com/apt/debian/8/amd64/2017.7 jessie main",
+        "deb https://mirrors.cloud.tencent.com/debian-archive/debian jessie-backports main",
+    ],
+    "custom_packages": []
+}
+cn_mirror_config = {
+    "debian_mirror": "http://mirrors.cloud.tencent.com/debian",
+    "debian_security_mirror": "http://mirrors.cloud.tencent.com/debian-security",
+    "debian_distribution": "jessie",
+    "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
+    "custom_apt_entry": [
+        "deb http://archive.repo.saltstack.com/apt/debian/8/amd64/2017.7 jessie main",
+        "deb https://mirrors.cloud.tencent.com/debian-archive/debian jessie-backports main",
+    ],
+    "custom_packages": []
+}
+
+
+def on_cloud(url):
+    try:
+        rv = requests.get(url, timeout=1)
+    except Exception as e:
+        return False
+    #print(rv.status_code)
+    if 200 == rv.status_code:
+        return True
+    else:
+        return False
+def on_tencent():
+    cloudinit_ds="http://metadata.tencentyun.com/latest/meta-data/instance-id"
+    return on_cloud(cloudinit_ds)
+def on_aliyun():
+    cloudinit_ds="http://mirrors.cloud.aliyuncs.com"
+    return on_cloud(cloudinit_ds)
+def on_huawei():
+    cloudinit_ds="http://mirrors.myhuaweicloud.com"
+    return on_cloud(cloudinit_ds)
+def on_cn():
+    cloudinit_ds="https://www.google.com"
+    return not on_cloud(cloudinit_ds)
+
+def update_config(build_config):
+    try:
+        with open(build_config, 'r') as f:
+            config = json.load(f)
+    except Exception as e:
+        print("Failed to open the build flavor file {0}: {1}".format(build_config, e))
+        sys.exit(1)
+    if on_aliyun():
+        mirror_config = aliyuncloud_mirror_config
+    elif on_tencent():
+        mirror_config = tencentcloud_mirror_config
+    elif on_huawei():
+        mirror_config = huaweicloud_mirror_config
+    elif on_cn():
+        mirror_config = cn_mirror_config
+    else:
+        mirror_config = {}
+    for k, v in mirror_config.items():
+        print(k, v)
+        config[k] = mirror_config[k]
+    # Save to file
+    print("Saving the build config to {0}".format(build_config))
+    with open(build_config, 'w') as ff:
+        json.dump(config, os.sys.stdout, indent=4, sort_keys=True)
+        json.dump(config, ff, indent=4, sort_keys=True)
+
+
+if __name__ == '__main__':
+    print(on_cn())
+    print(on_aliyun())
+    print(on_tencent())
+    print(on_huawei())
+    update_config("build/build-config.json")

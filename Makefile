@@ -279,11 +279,4 @@ clean:
 purge:
 	rm -rf build/*
 
-.PHONY: tencent
-.ONESHELL:
-tencent: prepare
-	@set -e
-	@echo "It's not like I'm building this specially for you or anything!"
-	@/bin/cp -fv config/build-config.json $(build_dir)
-	cd $(build_dir)
-	@../scripts/build-tencent-image
+-include Makefile.bld
