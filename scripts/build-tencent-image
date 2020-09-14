@@ -1,4 +1,4 @@
-#!/bin/sh -x
+#!/bin/bash
 #
 # Copyright (C) 2018 VyOS maintainers and contributors
 #
@@ -104,7 +104,7 @@ mkdir -p ${BLD_TOP}/build/config/includes.chroot/etc/cloud/cloud.cfg.d
 /bin/cp -f ${BLD_TOP}/tools/cloud-init/tencent/90_cloud.cfg    ${BLD_TOP}/build/config/includes.chroot/etc/cloud/90_cloud.cfg
 /bin/cp -f ${BLD_TOP}/tools/cloud-init/cloud-init.list.chroot ${BLD_TOP}/build/config/package-lists/
 /bin/cp -f ${BLD_TOP}/tools/cloud-init/tencent/config.boot.default ${BLD_TOP}/build/config/includes.chroot/opt/vyatta/etc/
-/bin/cp -f ${BLD_TOP}/benload/data/live-build-config/hooks/live/40-linux-firmware.chroot ${BLD_TOP}/build/config/hooks/live/40-linux-firmware.chroot
+/bin/cp -f ${BLD_TOP}/bldyun/data/live-build-config/hooks/live/40-linux-firmware.chroot ${BLD_TOP}/build/config/hooks/live/40-linux-firmware.chroot
 
 if [[ -z "$(find . -maxdepth 1  -name *.qcow2)" ]];then
 

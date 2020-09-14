@@ -31,6 +31,7 @@ import json
 
 aliyuncloud_mirror_config = {
     "debian_mirror": "http://mirrors.cloud.aliyuncs.com.json/debian",
+    "pbuilder_debian_mirror": "http://mirrors.cloud.aliyuncs.com.json/debian",
     "debian_security_mirror": "http://mirrors.cloud.aliyuncs.com.json/debian-security",
     "debian_distribution": "jessie",
     "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
@@ -42,8 +43,9 @@ aliyuncloud_mirror_config = {
 }
 
 huaweicloud_mirror_config = {
-    "debian_mirror": "http://mirrors.myhuaweicloud.com/debian",
-    "debian_security_mirror": "http://mirrors.myhuaweicloud.com/debian-security",
+    "debian_mirror": "http://mirrors.myhuaweicloud.com/debian/",
+    "pbuilder_debian_mirror": "http://mirrors.myhuaweicloud.com/debian/",
+    "debian_security_mirror": "http://mirrors.myhuaweicloud.com/debian-security/",
     "debian_distribution": "jessie",
     "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
     "custom_apt_entry": [
@@ -55,6 +57,7 @@ huaweicloud_mirror_config = {
 
 tencentcloud_mirror_config = {
     "debian_mirror": "http://mirrors.tencentyun.com/debian",
+    "pbuilder_debian_mirror": "http://mirrors.tencentyun.com/debian",
     "debian_security_mirror": "http://mirrors.tencentyun.com/debian-security",
     "debian_distribution": "jessie",
     "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
@@ -128,8 +131,8 @@ def update_config(build_config):
 
 
 if __name__ == '__main__':
-    print(on_cn())
-    print(on_aliyun())
-    print(on_tencent())
-    print(on_huawei())
+    print("run on_cn", on_cn())
+    print("run on_aliyun", on_aliyun())
+    print("run on_tencent", on_tencent())
+    print("run on_huawei", on_huawei())
     update_config("build/build-config.json")

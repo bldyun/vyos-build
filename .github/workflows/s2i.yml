@@ -37,4 +37,4 @@ jobs:
           -v "$HOME/.bashrc":/home/vyos_bld/.bashrc \
           -w /vyos --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0 \
           -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) \
-          vyos/vyos-build:crux make tencent
+          vyos/vyos-build:crux make -f Makefile.bld tencent

@@ -1,9 +1,17 @@
-build_dir := build
-
-include Makefile
-
+.PHONY: bld-config
+bld-config:
+	./configure --build-by jimminh@163.com --build-type release --version 1.2.1-bld
 .PHONY: tencent
 .ONESHELL:
-tencent: prepare
+tencent: bld-config
+	@set -e
+	@echo "Starting VyOS ISO image build"
+	rm -rf build/config/*
+	mkdir -p build/config
+	cp -r data/live-build-config/* build/config/
 	bldyun/build-config-update-mirror
-	@../scripts/build-tencent-image
+	@scripts/live-build-config
+	@scripts/import-local-packages
+	@scripts/make-version-file
+	@scripts/build-flavour
+	@scripts/build-tencent-image

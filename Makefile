@@ -278,5 +278,3 @@ clean:
 .PHONY: purge
 purge:
 	rm -rf build/*
-
--include Makefile.bld
