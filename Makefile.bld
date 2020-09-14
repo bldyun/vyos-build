@@ -1,6 +1,6 @@
 .PHONY: bld-config
 bld-config:
-	./configure --build-by jimminh@163.com --build-type release --version 1.2.1-bld
+	./configure --build-by jimminh@163.com --build-type release --version 1.2.x
 .PHONY: tencent
 .ONESHELL:
 tencent: bld-config

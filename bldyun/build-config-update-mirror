@@ -43,14 +43,15 @@ aliyuncloud_mirror_config = {
 }
 
 huaweicloud_mirror_config = {
-    "debian_mirror": "http://mirrors.myhuaweicloud.com/debian/",
-    "pbuilder_debian_mirror": "http://mirrors.myhuaweicloud.com/debian/",
-    "debian_security_mirror": "http://mirrors.myhuaweicloud.com/debian-security/",
+    "debian_mirror": "http://mirrors.myhuaweicloud.com/debian",
+    "pbuilder_debian_mirror": "http://mirrors.myhuaweicloud.com/debian",
+    "debian_security_mirror": "http://mirrors.myhuaweicloud.com/debian-security",
     "debian_distribution": "jessie",
     "vyos_mirror": "http://repo.bldyun.com/vyos/repositories-crux",
     "custom_apt_entry": [
-        "deb http://archive.repo.saltstack.com/apt/debian/8/amd64/2017.7 jessie main",
-        "deb https://mirrors.cloud.tencent.com/debian-archive/debian jessie-backports main",
+        "deb https://mirrors.huaweicloud.com/debian jessie main contrib non-free",
+        "deb https://mirrors.huaweicloud.com/debian jessie-updates main contrib non-free",
+        "deb https://mirrors.huaweicloud.com/debian-security jessie/updates main contrib non-free"
     ],
     "custom_packages": []
 }
