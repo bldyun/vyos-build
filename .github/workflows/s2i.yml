@@ -33,8 +33,8 @@ jobs:
           docker pull vyos/vyos-build:crux && docker run --rm -i \
           -v "$(pwd)":/vyos \
           -v "$HOME/.gitconfig":/etc/gitconfig \
-          -v "$HOME/.bash_aliases":/home/vyos_bld/.bash_aliases \
-          -v "$HOME/.bashrc":/home/vyos_bld/.bashrc \
+          -v "$HOME/.bash_aliases":/root/.bash_aliases \
+          -v "$HOME/.bashrc":/root/.bashrc \
           -w /vyos --privileged --sysctl net.ipv6.conf.lo.disable_ipv6=0 \
-          -e GOSU_UID=$(id -u) -e GOSU_GID=$(id -g) \
+          -e GOSU_UID=0 -e GOSU_GID=0 \
           vyos/vyos-build:crux make -f Makefile.bld tencent
